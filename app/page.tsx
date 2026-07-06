@@ -1,65 +1,129 @@
-import Image from "next/image";
+import Link from "next/link";
+import { CityCard } from "@/components/ui/CityCard";
+import { HomeHero } from "@/components/ui/HomeHero";
+import { NewsletterForm } from "@/components/ui/NewsletterForm";
+import { StoryCard } from "@/components/ui/StoryCard";
+import {
+  getAllStories,
+  getFeaturedDestinations,
+  getRankingBySlug,
+} from "@/lib/content";
 
-export default function Home() {
+export default function HomePage() {
+  const featured = getFeaturedDestinations(3);
+  const stories = getAllStories().slice(0, 3);
+  const ranking = getRankingBySlug("coastal-towns");
+  const topRanked = ranking
+    ? [...ranking.entries].sort((a, b) => b.scores.overall - a.scores.overall).slice(0, 5)
+    : [];
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <>
+      <HomeHero />
+
+      <section className="bg-soft-beige/30 py-20 md:py-28">
+        <div className="mx-auto max-w-6xl px-6 md:px-8">
+          <div className="mb-12 flex items-end justify-between">
+            <div>
+              <p className="font-utility text-[10px] text-sage">CURATED</p>
+              <h2 className="font-display mt-2 text-3xl text-deep-blue md:text-4xl">
+                Featured Destinations
+              </h2>
+            </div>
+            <Link
+              href="/destinations"
+              className="hidden text-sm text-deep-blue underline-offset-4 hover:underline md:inline"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+              View all
+            </Link>
+          </div>
+          <div className="grid gap-8 md:grid-cols-3">
+            {featured.map((destination, i) => (
+              <CityCard key={destination.slug} destination={destination} rank={i + 1} />
+            ))}
+          </div>
+          <Link
+            href="/destinations"
+            className="mt-8 inline-block text-sm text-deep-blue underline-offset-4 hover:underline md:hidden"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            View all destinations
+          </Link>
         </div>
-      </main>
-    </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-6 py-20 md:px-8 md:py-28">
+        <div className="mb-12">
+          <p className="font-utility text-[10px] text-sage">FROM THE JOURNAL</p>
+          <h2 className="font-display mt-2 text-3xl text-deep-blue md:text-4xl">The Journal</h2>
+        </div>
+        <div className="space-y-16">
+          {stories.map((story) => (
+            <StoryCard key={story.slug} story={story} />
+          ))}
+        </div>
+        <Link
+          href="/stories"
+          className="mt-12 inline-block text-sm text-deep-blue underline-offset-4 hover:underline"
+        >
+          Read all stories
+        </Link>
+      </section>
+
+      {ranking && topRanked.length > 0 && (
+        <section className="bg-sage/10 py-20 md:py-28">
+          <div className="mx-auto max-w-6xl px-6 md:px-8">
+            <div className="mb-12 flex items-end justify-between">
+              <div>
+                <p className="font-utility text-[10px] text-sage">RANKINGS</p>
+                <h2 className="font-display mt-2 text-3xl text-deep-blue md:text-4xl">
+                  {ranking.title}
+                </h2>
+              </div>
+              <Link
+                href="/rankings/coastal-towns"
+                className="text-sm text-deep-blue underline-offset-4 hover:underline"
+              >
+                Full table
+              </Link>
+            </div>
+            <ol className="space-y-4">
+              {topRanked.map((entry, i) => (
+                <li key={entry.slug}>
+                  <Link
+                    href={`/destinations/${entry.slug}`}
+                    className="flex items-center justify-between rounded-xl bg-cream/80 px-6 py-4 transition-colors duration-200 hover:bg-cream"
+                  >
+                    <span className="flex items-center gap-4">
+                      <span className="font-utility text-[10px] text-sage">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span>
+                        <span className="font-display text-lg text-deep-blue">{entry.city}</span>
+                        <span className="ml-2 text-sm text-sage">{entry.country}</span>
+                      </span>
+                    </span>
+                    <span className="font-medium text-deep-blue">{entry.scores.overall}/10</span>
+                  </Link>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+      )}
+
+      <section className="mx-auto max-w-6xl px-6 py-20 text-center md:px-8 md:py-28">
+        <p className="font-utility text-[10px] text-sage">NEWSLETTER</p>
+        <h2 className="font-display mt-2 text-3xl text-deep-blue md:text-4xl">
+          Slow living, in your inbox
+        </h2>
+        <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-navy/80">
+          New city guides, rankings, and one story a month — the Mediterranean way of life,
+          delivered without rush.
+        </p>
+        <div className="mx-auto mt-8 flex justify-center">
+          <NewsletterForm />
+        </div>
+      </section>
+    </>
   );
 }

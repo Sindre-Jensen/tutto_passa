@@ -1,0 +1,65 @@
+{
+  "slug": "coastal-towns",
+  "title": "Best Mediterranean Coastal Towns",
+  "description": "Our original scores across coffee, food, beaches, weather, walkability, atmosphere, and cost — sortable and updated as we explore more of the coast.",
+  "categories": [
+    { "key": "overall", "label": "Overall" },
+    { "key": "coffee", "label": "Coffee" },
+    { "key": "food", "label": "Food" },
+    { "key": "beaches", "label": "Beaches" },
+    { "key": "weather", "label": "Weather" },
+    { "key": "walkability", "label": "Walkability" },
+    { "key": "atmosphere", "label": "Atmosphere" },
+    { "key": "cost", "label": "Value" }
+  ],
+  "entries": [
+    {
+      "slug": "lisbon",
+      "city": "Lisbon",
+      "country": "Portugal",
+      "scores": { "coffee": 9, "food": 9, "beaches": 7, "weather": 9, "walkability": 8, "atmosphere": 9, "cost": 8, "overall": 9 }
+    },
+    {
+      "slug": "barcelona",
+      "city": "Barcelona",
+      "country": "Spain",
+      "scores": { "coffee": 8, "food": 10, "beaches": 8, "weather": 9, "walkability": 9, "atmosphere": 9, "cost": 6, "overall": 9 }
+    },
+    {
+      "slug": "porto",
+      "city": "Porto",
+      "country": "Portugal",
+      "scores": { "coffee": 8, "food": 9, "beaches": 6, "weather": 8, "walkability": 9, "atmosphere": 9, "cost": 9, "overall": 8 }
+    },
+    {
+      "slug": "split",
+      "city": "Split",
+      "country": "Croatia",
+      "scores": { "coffee": 7, "food": 8, "beaches": 9, "weather": 8, "walkability": 8, "atmosphere": 9, "cost": 8, "overall": 8 }
+    },
+    {
+      "slug": "chania",
+      "city": "Chania",
+      "country": "Greece",
+      "scores": { "coffee": 8, "food": 9, "beaches": 9, "weather": 9, "walkability": 8, "atmosphere": 10, "cost": 7, "overall": 9 }
+    },
+    {
+      "slug": "syracuse",
+      "city": "Syracuse",
+      "country": "Italy",
+      "scores": { "coffee": 9, "food": 9, "beaches": 8, "weather": 9, "walkability": 7, "atmosphere": 10, "cost": 7, "overall": 9 }
+    },
+    {
+      "slug": "nice",
+      "city": "Nice",
+      "country": "France",
+      "scores": { "coffee": 8, "food": 9, "beaches": 8, "weather": 9, "walkability": 9, "atmosphere": 8, "cost": 5, "overall": 8 }
+    },
+    {
+      "slug": "palermo",
+      "city": "Palermo",
+      "country": "Italy",
+      "scores": { "coffee": 9, "food": 10, "beaches": 7, "weather": 9, "walkability": 7, "atmosphere": 10, "cost": 9, "overall": 9 }
+    }
+  ]
+}
