@@ -33,16 +33,48 @@ export async function POST(request: Request) {
       });
     }
 
+    const forwarded = request.headers.get("x-forwarded-for");
+    const ipAddress =
+      forwarded?.split(",")[0]?.trim() ?? request.headers.get("x-real-ip") ?? undefined;
+
     const res = await fetch("https://api.buttondown.com/v1/subscribers", {
       method: "POST",
       headers: {
         Authorization: `Token ${apiKey}`,
         "Content-Type": "application/json",
+        "X-Buttondown-Collision-Behavior": "overwrite",
       },
-      body: JSON.stringify({ email, type: "regular" }),
+      body: JSON.stringify({
+        email_address: email,
+        type: "regular",
+        ...(ipAddress ? { ip_address: ipAddress } : {}),
+      }),
     });
 
-    if (!res.ok && res.status !== 409) {
+    if (!res.ok) {
+      const errorBody = await res.json().catch(() => null);
+      const errorCode =
+        errorBody && typeof errorBody === "object" && "code" in errorBody
+          ? String(errorBody.code)
+          : null;
+
+      // Already subscribed — treat as success for the visitor
+      if (res.status === 409 || errorCode === "subscriber_already_exists") {
+        return NextResponse.json({
+          message: "Welcome aboard — slow living updates heading your way.",
+        });
+      }
+
+      if (errorCode === "subscriber_blocked") {
+        return NextResponse.json(
+          {
+            error:
+              "Subscription could not be completed. If this keeps happening, check Buttondown → Settings → Firewall.",
+          },
+          { status: 503 }
+        );
+      }
+
       return NextResponse.json(
         { error: "Could not subscribe. Please try again." },
         { status: 500 }
