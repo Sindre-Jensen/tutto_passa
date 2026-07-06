@@ -36,6 +36,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/stories`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
     { url: `${baseUrl}/newsletter`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
     { url: `${baseUrl}/philosophy`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+    { url: `${baseUrl}/privacy`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.4 },
     ...destinations,
     ...stories,
     ...rankings,

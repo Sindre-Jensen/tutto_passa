@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { NewsletterForm } from "@/components/ui/NewsletterForm";
+import { siteConfig } from "@/lib/site-config";
 
 const footerLinks = [
   { href: "/destinations", label: "Destinations" },
@@ -7,6 +8,14 @@ const footerLinks = [
   { href: "/stories", label: "Journal" },
   { href: "/philosophy", label: "Philosophy" },
   { href: "/newsletter", label: "Subscribe" },
+  { href: "/privacy", label: "Privacy" },
+];
+
+const socialLinks = [
+  { href: siteConfig.social.instagram, label: "Instagram" },
+  { href: siteConfig.social.tiktok, label: "TikTok" },
+  { href: siteConfig.social.pinterest, label: "Pinterest" },
+  { href: siteConfig.social.youtube, label: "YouTube" },
 ];
 
 export function Footer() {
@@ -21,6 +30,19 @@ export function Footer() {
               A premium guide to Mediterranean living — slow days, coastal towns, espresso
               rituals, and the art of enjoying life.
             </p>
+            <div className="mt-6 flex flex-wrap gap-4">
+              {socialLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-utility text-[9px] text-soft-beige transition-opacity duration-200 hover:opacity-80"
+                >
+                  {link.label.toUpperCase()}
+                </a>
+              ))}
+            </div>
           </div>
           <div>
             <p className="font-utility mb-4 text-[10px] text-soft-beige">STAY IN THE LOOP</p>

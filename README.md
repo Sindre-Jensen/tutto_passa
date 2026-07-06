@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Tutto Passa
 
-## Getting Started
+A premium Mediterranean lifestyle site — curated destinations, editorial stories, rankings, and slow living.
 
-First, run the development server:
+Built with **Next.js 16**, **MDX content files**, and **Tailwind CSS**. No CMS required.
+
+## Quick start
 
 ```bash
+npm install
+cp .env.example .env.local   # then fill in values
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Variable | Required | Purpose |
+|----------|----------|---------|
+| `NEXT_PUBLIC_SITE_URL` | Production | Sitemap and social share URLs |
+| `BUTTONDOWN_API_KEY` | Production | Newsletter subscriber storage |
+| `NEWSLETTER_DEV_MODE` | Local only | Set `true` to test form without Buttondown |
 
-## Learn More
+See [`.env.example`](.env.example) for details.
 
-To learn more about Next.js, take a look at the following resources:
+## Deploy (Vercel)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Push this repo to GitHub
+2. Import at [vercel.com/new](https://vercel.com/new)
+3. Add environment variables in Vercel project settings
+4. Connect your domain in Vercel → Domains
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Full guide: [`docs/OPERATIONS.md`](docs/OPERATIONS.md)
 
-## Deploy on Vercel
+## Edit content
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| What | Where |
+|------|-------|
+| City guides | `content/destinations/*.mdx` + scores in `content/rankings/coastal-towns.json` |
+| Journal articles | `content/stories/*.mdx` |
+| Rankings | `content/rankings/*.json` |
+| Pulse bubble quotes/facts | `content/pulse/*.json` |
+| Images | `public/images/` |
+| Hero video | `public/videos/hero.mp4` |
+| Social links | `lib/site-config.ts` |
+| Philosophy page | `app/philosophy/page.tsx` |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Scripts
+
+```bash
+npm run dev      # local preview
+npm run build    # production build test
+npm run start    # run production build locally
+npm run lint     # ESLint
+```
+
+## Design system
+
+See [`references/design-analysis.md`](references/design-analysis.md) for brand tokens and UI principles.
+
+## Documentation
+
+- **[Operations guide](docs/OPERATIONS.md)** — launch checklist, content templates, troubleshooting
+- **New to this?** Start with the [Operations guide](docs/OPERATIONS.md) — written for beginners.

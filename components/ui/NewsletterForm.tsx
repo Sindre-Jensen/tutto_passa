@@ -74,6 +74,16 @@ export function NewsletterForm({ variant = "default" }: NewsletterFormProps) {
           {message}
         </p>
       )}
+      <p className={`text-xs sm:basis-full ${isFooter ? "text-soft-beige/60" : "text-sage/70"}`}>
+        By subscribing you agree to our{" "}
+        <a
+          href="/privacy"
+          className={`underline underline-offset-2 ${isFooter ? "hover:text-soft-beige" : "hover:text-deep-blue"}`}
+        >
+          privacy policy
+        </a>
+        .
+      </p>
     </form>
   );
 }
